@@ -45,7 +45,7 @@ class BookSerializer
 end
 
 # Endpoints
-get '/ ' do
+get '/' do
   'Welcome to BookList!'
 end
 
@@ -85,7 +85,7 @@ namespace '/api/v1' do
     BookSerializer.new(book).to_json
   end
 
-  post '/books ' do
+  post '/books' do
     book = Book.new(json_params)
     if book.save
       response.headers['Location'] = "#{base_url}/api/v1/books/#{book.id}"
@@ -96,7 +96,7 @@ namespace '/api/v1' do
     end
   end
 
-  patch '/books/:id ' do |id|
+  patch '/books/:id' do |id|
     book = Book.where(id: id).first
     halt(404, { message:'Book Not Found'}.to_json) unless book
     if book.update_attributes(json_params)
@@ -111,7 +111,7 @@ namespace '/api/v1' do
       book.destroy if book
       status 204
     end
-    
+
   end
 
 end
